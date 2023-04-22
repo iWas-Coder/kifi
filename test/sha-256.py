@@ -18,5 +18,3 @@
 
 
 import ctypes
-
-ctypes.
