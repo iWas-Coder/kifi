@@ -21,6 +21,7 @@
 /* === HEADERS === */
 /*******************/
 #include <stdio.h>
+#include <ppo.h>
 #include <sha-256.h>
 #include <keccak-256.h>
 
@@ -30,18 +31,20 @@
 /****************/
 int main(void) {
   byte text[] = "test";
+  printf("%sInput:%s ", RED_BOLD, RESET);
+  printf("%s%s%s\n\n", WHITE_BOLD, text, RESET);
 
   byte sha256_hash[SHA256_BLOCK_SIZE];
   sha256_compute(text, sha256_hash);
-  printf("SHA-256: ");
+  printf("%sSHA-256:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
   for (int i = 0; i < SHA256_BLOCK_SIZE; i++) printf("%02x", sha256_hash[i]);
-  printf("\n");
+  printf("%s\n", RESET);
 
   byte keccak256_hash[KECCAK256_BLOCK_SIZE];
   keccak256_compute(text, keccak256_hash);
-  printf("Keccak-256: ");
+  printf("%sKeccak-256:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
   for (int i = 0; i < KECCAK256_BLOCK_SIZE; i++) printf("%02x", keccak256_hash[i]);
-  printf("\n");
+  printf("%s\n", RESET);
 
   return 0;
 }
