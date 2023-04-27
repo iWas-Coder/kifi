@@ -47,7 +47,6 @@ typedef struct {
   uint64_t hash[KECCAK256_MAX_PERMUTATION_SIZE];
   uint64_t msg[KECCAK256_MAX_QWORDS_RATE];
   uint16_t rest;
-  // unsigned block_size;
 } keccak256_ctx;
 
 

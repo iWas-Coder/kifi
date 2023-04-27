@@ -22,7 +22,7 @@
 ##################
 # Project information
 APP = kifi
-DESC =
+DESC = a multi-algorithm PoW miner
 # Version and metadata
 VERSION = 1
 PATCHLEVEL = 0
