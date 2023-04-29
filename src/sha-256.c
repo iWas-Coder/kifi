@@ -171,3 +171,17 @@ void sha256_compute(byte* string, byte* hash) {
   sha256_update(&ctx, string, strlen((char*) string));
   sha256_out(&ctx, hash);
 }
+
+void sha256d_compute(byte* string, byte* hash) {
+  sha256_ctx ctx1;
+  sha256_ctx ctx2;
+  byte hash_tmp[SHA256_BLOCK_SIZE];
+
+  sha256_init(&ctx1);
+  sha256_update(&ctx1, string, strlen((char*) string));
+  sha256_out(&ctx1, hash_tmp);
+
+  sha256_init(&ctx2);
+  sha256_update(&ctx2, hash_tmp, strlen((char*) hash_tmp));
+  sha256_out(&ctx2, hash);
+}

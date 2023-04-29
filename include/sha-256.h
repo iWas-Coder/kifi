@@ -54,6 +54,7 @@ void sha256_transform(sha256_ctx* ctx, const byte* data);
 void sha256_update(sha256_ctx* ctx, const byte* data, size_t len);
 void sha256_out(sha256_ctx* ctx, byte* hash);
 void sha256_compute(byte* string, byte* hash);
+void sha256d_compute(byte* string, byte* hash);
 
 
 #endif  // SHA256_H_

@@ -30,16 +30,26 @@
 /* === MAIN === */
 /****************/
 int main(void) {
-  byte text[] = "test";
+  // Input
+  byte text[] = "hello";
   printf("%sInput:%s ", RED_BOLD, RESET);
   printf("%s%s%s\n\n", WHITE_BOLD, text, RESET);
 
+  // SHA-256
   byte sha256_hash[SHA256_BLOCK_SIZE];
   sha256_compute(text, sha256_hash);
   printf("%sSHA-256:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
   for (int i = 0; i < SHA256_BLOCK_SIZE; i++) printf("%02x", sha256_hash[i]);
   printf("%s\n", RESET);
 
+  // SHA-256d
+  byte sha256d_hash[SHA256_BLOCK_SIZE];
+  sha256d_compute(text, sha256d_hash);
+  printf("%sSHA-256d:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
+  for (int i = 0; i < SHA256_BLOCK_SIZE; i++) printf("%02x", sha256d_hash[i]);
+  printf("%s\n", RESET);
+
+  // Keccak-256
   byte keccak256_hash[KECCAK256_BLOCK_SIZE];
   keccak256_compute(text, keccak256_hash);
   printf("%sKeccak-256:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
