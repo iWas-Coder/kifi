@@ -20,25 +20,15 @@
 /*******************/
 /* === HEADERS === */
 /*******************/
-#include <cli.h>
+#include <ppo.h>
 #include <stdio.h>
-#include <string.h>
 
 
 /********************************/
 /* === FUNCTION DEFINITIONS === */
 /********************************/
-// TODO: Continue working on the CLI implementation.
-/*
-int cli_group_handler(int* argc, char*** argv, void* data) {
-  char* cmd = **argv;
-  void** element = data;
-  int result;
-
-  if (!*argc) goto not_found;
-
-  while (*element) {
-    
-  }
+void print_hash(byte* hash) {
+  printf(WHITE_BOLD);
+  for (unsigned int i = 0; i < HASH_LENGTH; i++) printf("%02x", hash[i]);
+  printf("%s\n", RESET);
 }
-*/

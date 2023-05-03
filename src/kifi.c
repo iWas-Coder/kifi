@@ -20,10 +20,19 @@
 /*******************/
 /* === HEADERS === */
 /*******************/
-#include <stdio.h>
 #include <ppo.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sha-256.h>
 #include <keccak-256.h>
+
+
+/******************/
+/* === MACROS === */
+/******************/
+#define EXAMPLE "hello"
+#define ZEROS 1
 
 
 /****************/
@@ -31,7 +40,7 @@
 /****************/
 int main(void) {
   // Input
-  byte text[] = "hello";
+  byte text[] = EXAMPLE;
   printf("%sInput:%s ", RED_BOLD, RESET);
   printf("%s%s%s\n\n", WHITE_BOLD, text, RESET);
 
@@ -54,7 +63,37 @@ int main(void) {
   keccak256_compute(text, keccak256_hash);
   printf("%sKeccak-256:%s %s", YELLOW_BOLD, RESET, WHITE_BOLD);
   for (int i = 0; i < KECCAK256_BLOCK_SIZE; i++) printf("%02x", keccak256_hash[i]);
-  printf("%s\n", RESET);
+  printf("%s\n\n", RESET);
 
-  return 0;
+  srand(time(NULL));
+  uint32_t nonce = rand();
+  printf("%sNonce starting point (random):%s %s0x%02x%s\n", CYAN_BOLD, RESET, WHITE_BOLD, nonce, RESET);
+  printf("%sNumber of leading zeros:%s %s%u%s\n", CYAN_BOLD, RESET, WHITE_BOLD, ZEROS, RESET);
+  printf("Press ENTER key to continue...\n");
+  getchar();
+
+  printf("%sSHA-256d hashing:%s\n", RED_BOLD, RESET);
+  for (;;) {
+    char str[SHA256_BLOCK_SIZE];
+    sprintf(str, "%u", nonce);
+    byte hash_candidate[SHA256_BLOCK_SIZE];
+    sha256d_compute((byte*) str, hash_candidate);
+    print_hash(hash_candidate);
+    
+    uint32_t zeros = 0;
+    for (int i = 0; i < ZEROS && i < (int) sizeof(hash_candidate); i++) {
+      if (hash_candidate[i] == 0) zeros++;
+      else break;
+    }
+    if (zeros == ZEROS) {
+      printf("\n%sNonce:%s %s0x%02x%s\n", GREEN_BOLD, RESET, WHITE_BOLD, nonce, RESET);
+      printf("%sHash:%s ", GREEN_BOLD, RESET);
+      print_hash(hash_candidate);
+      return 0;
+    }
+
+    nonce++;
+  }
+
+  return 1;
 }

@@ -24,10 +24,25 @@
 /******************/
 /* === MACROS === */
 /******************/
+#define HASH_LENGTH 32
 #define RESET "\033[0m"
 #define RED_BOLD "\033[1;31m"
+#define CYAN_BOLD "\033[1;36m"
 #define WHITE_BOLD "\033[1;37m"
+#define GREEN_BOLD "\033[1;32m"
 #define YELLOW_BOLD "\033[1;33m"
+
+
+/**********************/
+/* === DATA TYPES === */
+/**********************/
+typedef unsigned char byte;
+
+
+/*********************************/
+/* === FUNCTION DECLARATIONS === */
+/*********************************/
+void print_hash(byte* hash);
 
 
 #endif  // PPO_H_

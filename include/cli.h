@@ -24,7 +24,31 @@
 /******************/
 /* === MACROS === */
 /******************/
-;
+#define CLI_OPTION_DELIMITER "-"
+#define CLI_GROUP(...) &((commander) { \
+  cli_group_handler,                   \
+  &((void* []) { __VA_ARGS__, NULL })  \
+})
+#define CLI_FIRST_COMMAND(handler) &((commander) { \
+  cli_command_handler,                             \
+  &((commander_command) {                          \
+    handler,                                       \
+    (commander_option* []) { NULL }                \
+  })                                               \
+})
+#define CLI_COMMAND(handler, ...) &((commander) { \
+  cli_command_handler,                            \
+  &((commander_command) {                         \
+    handler,                                      \
+    (commander_option* []) { __VA_ARGS__, NULL }  \
+  })                                              \
+})
+#define CLI_FLAG(short_name, long_name, flag) &((commander) { \
+  short_name,                                                 \
+  long_name,                                                  \
+  cli_flag_handler,                                           \
+  flag                                                        \
+})
 
 
 /**********************/
@@ -49,7 +73,7 @@ typedef struct {
 /*********************************/
 /* === FUNCTION DECLARATIONS === */
 /*********************************/
-int cli_group_handler(int*, char***, void*);
+int cli_group_handler(int* argc, char*** argv, void* data);
 int cli_command_handler(int*, char***, void*);
 int cli_flag_handler(int*, char***, void*);
 int cli_handle(int, char**, commander*);
