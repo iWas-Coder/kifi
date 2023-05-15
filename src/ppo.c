@@ -32,3 +32,15 @@ void print_hash(byte* hash) {
   for (unsigned int i = 0; i < HASH_LENGTH; i++) printf("%02x", hash[i]);
   printf("%s\n", RESET);
 }
+
+void print_exec_time(clock_t t0, clock_t t1, char* msg) {
+  double exec_time = (double) (t1 - t0) / CLOCKS_PER_SEC;
+  printf("\n%s%s: ", PURPLE_BOLD, msg);
+  // Microseconds
+  if ((int) exec_time == 0) printf("%u μs\n", (int) (exec_time * MICROSECS_IN_SEC));
+  // Minutes
+  else if (exec_time > SECS_IN_MIN) printf("%u min\n", (int) (exec_time / SECS_IN_MIN));
+  // Seconds
+  else printf("%.2f s\n", exec_time);
+  printf(RESET);
+}

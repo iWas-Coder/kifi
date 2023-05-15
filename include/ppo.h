@@ -21,16 +21,25 @@
 #define PPO_H_
 
 
+/*******************/
+/* === HEADERS === */
+/*******************/
+#include <time.h>
+
+
 /******************/
 /* === MACROS === */
 /******************/
 #define HASH_LENGTH 32
+#define SECS_IN_MIN 60
+#define MICROSECS_IN_SEC 1000000
 #define RESET "\033[0m"
 #define RED_BOLD "\033[1;31m"
 #define CYAN_BOLD "\033[1;36m"
 #define WHITE_BOLD "\033[1;37m"
 #define GREEN_BOLD "\033[1;32m"
 #define YELLOW_BOLD "\033[1;33m"
+#define PURPLE_BOLD "\033[1;35m"
 
 
 /**********************/
@@ -43,6 +52,7 @@ typedef unsigned char byte;
 /* === FUNCTION DECLARATIONS === */
 /*********************************/
 void print_hash(byte* hash);
+void print_exec_time(clock_t t0, clock_t t1, char* msg);
 
 
 #endif  // PPO_H_

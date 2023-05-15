@@ -65,6 +65,7 @@ int main(void) {
   for (int i = 0; i < KECCAK256_BLOCK_SIZE; i++) printf("%02x", keccak256_hash[i]);
   printf("%s\n\n", RESET);
 
+  // Random nonce starting point
   srand(time(NULL));
   uint32_t nonce = rand();
   printf("%sNonce starting point (random):%s %s0x%02x%s\n", CYAN_BOLD, RESET, WHITE_BOLD, nonce, RESET);
@@ -72,7 +73,10 @@ int main(void) {
   printf("Press ENTER key to continue...\n");
   getchar();
 
+  // Hashing loop
   printf("%sSHA-256d hashing:%s\n", RED_BOLD, RESET);
+  clock_t t0, t1;
+  t0 = clock();
   for (;;) {
     char str[SHA256_BLOCK_SIZE];
     sprintf(str, "%u", nonce);
@@ -86,6 +90,11 @@ int main(void) {
       else break;
     }
     if (zeros == ZEROS) {
+      // Execution time (completed)
+      t1 = clock();
+      print_exec_time(t0, t1, "Execution time");
+
+      // Print found hash and corresponding nonce
       printf("\n%sNonce:%s %s0x%02x%s\n", GREEN_BOLD, RESET, WHITE_BOLD, nonce, RESET);
       printf("%sHash:%s ", GREEN_BOLD, RESET);
       print_hash(hash_candidate);
@@ -94,6 +103,10 @@ int main(void) {
 
     nonce++;
   }
+
+  // Time spent (not completed)
+  t1 = clock();
+  print_exec_time(t0, t1, "Time spent");
 
   return 1;
 }
